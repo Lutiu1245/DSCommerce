@@ -3,6 +3,9 @@ package com.devsuperior.DSCommerce.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "tb_user")
 public class User {
@@ -14,6 +17,9 @@ public class User {
     private String phone;
     private LocalDate birthDate;
     private String password;
+
+    @OneToMany(mappedBy = "client")
+    List<Order> orders = new ArrayList<>();
     //private String[] roles;
 
 
@@ -76,5 +82,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 }
