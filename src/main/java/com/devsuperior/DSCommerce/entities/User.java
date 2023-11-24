@@ -1,4 +1,4 @@
-package com.devsuperior.DSCommerce;
+package com.devsuperior.DSCommerce.entities;
 
 import jakarta.persistence.*;
 
