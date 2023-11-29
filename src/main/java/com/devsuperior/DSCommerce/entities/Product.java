@@ -41,6 +41,9 @@ public class Product {
         this.categories = categories;
     }
 
+    public Product(String name, String description, double price, String imgUrl) {
+    }
+
     public Long getId() {
         return id;
     }
