@@ -25,16 +25,27 @@ public class ProductService {
     public Page<ProductDTO> findAll(Pageable pageable) {
         Page<Product> productList = repository.findAll(pageable);
         return productList.map(x -> new ProductDTO(x));
+        // return productList.map(ProductDTO::new);
     }
     @Transactional()
     public ProductDTO insert(ProductDTO productDTO) {
-        Product product = repository.save(new Product(
-                productDTO.getName(),
-                productDTO.getDescription(),
-                productDTO.getPrice(),
-                productDTO.getImgUrl()
-        ));
-
+        Product product = new Product();
+        copyDTO(product, productDTO);
+        product = repository.save(product);
         return new ProductDTO(product);
+    }
+    @Transactional()
+    public ProductDTO update(Long id, ProductDTO productDTO) {
+        Product product = repository.getReferenceById(id);
+        copyDTO(product, productDTO);
+        product = repository.save(product);
+        return new ProductDTO(product);
+    }
+
+    private void copyDTO(Product product, ProductDTO productDTO) {
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
+        product.setImgUrl(productDTO.getImgUrl());
     }
 }
